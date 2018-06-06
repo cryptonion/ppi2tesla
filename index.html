@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>PPI2TESLA</title>
+  <link href="style/main.css" rel="stylesheet" type="text/css">
+
+  <meta name="wen tesla" content="The World's First PiedPiperCoin to Tesla exchange! Check regularly to see when your PPI is worth a Tesla. Hail Satan!">
+</head>
+<script src="dist/socket.io.js"></script>
+
+<script>
+  window.onload = function () {
+    console.log('im loaded bitch')
+    var self = this
+    // var socket = new WebSocket('wss://socket.etherdelta.com/socket.io/?transport=websocket')
+    // console.log(socket)
+    // socket.onmessage = function (event) {
+    //   var data = event.data.slice(1, event.data.length)
+    //   console.log('event', JSON.parse(data))
+    // }
+    // var msg = {
+    //   token: '0x5a3c9a1725aa82690ee0959c89abe96fd1b527ee',
+    // };
+    // socket.onopen = function () {
+    //   socket.emit('getMarket', JSON.stringify(msg))
+    // }
+    var tokenAddr = '0x5a3c9a1725aa82690ee0959c89abe96fd1b527ee'
+
+    self.init = () => new Promise((resolve, reject) => {
+      self.socket = io.connect('https://socket.etherdelta.com', { transports: ['websocket'] })
+
+      self.socket.on('connect', () => {
+        console.log('connected!')
+        resolve()
+      })
+
+      self.socket.on('disconnect', () => {
+        console.log('socket disconnected');
+      });
+
+      setTimeout(() => {
+        reject('Could not connect to socket');
+      }, 10000);
+    })
+
+    self.init().then((() => {
+
+    }))
+  }
+</script>
+
+<body>
+  <header>
+    <h1>PiedPiperCoin / Tesla</h1>
+  </header>
+
+  <section class="main">
+    <div class="tesla-price">
+      1 Tesla Model S P100D (with all extras ofcourse) = $147,000
+    </div>
+    <div class="main-ticker">
+      1 Tesla =
+      <span id="tesla2ppi"></span>
+    </div>
+  </section>
+</body>
+
+</html>
